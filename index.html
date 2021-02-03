@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>File2Url</title>
+	<link rel="shortcut icon" type="image/png" href="./favicon.png">
+</head>
+<body>
+	<label>Input File
+	<input id="file_in" type="file" name="file" required=true/></label>
+	<input id="sub" type="submit" name="Submit">
+	<br>
+	<label>Output Url
+	<textarea cols="25" rows="25" id="out" readonly ></textarea></label>
+	<script type="text/javascript">
+		alert("Thank you for paying a visit to my website , This is a tool to convet any file into a url which can be run by a browser! , Please select a file , and press submit to convert")
+		try{
+		var output = document.getElementById("out")
+		var submit = document.getElementById('sub');
+		submit.onclick = function() {
+    	alert("Press Ok to convert!");
+    	const selectedFile = document.getElementById('file_in').files[0];
+    	console.log(selectedFile)
+    	let fr = new FileReader();
+    	fr.onload = function(event) {
+    	console.log(event.target.result);
+    	output.value = event.target.result
+    	output.focus();
+    	output.select();
+    	try {
+    	var successful = document.execCommand('copy');
+    	var msg = successful ? 'successful' : 'unsuccessful';
+    	alert('Url Copied to clipboard!');
+  		} catch (err) {
+    	console.error('Fallback: Oops, unable to copy', err);
+  		}
+		};
+    	//fr.onload = onLoadFileHandler;
+    	console.log(fr.readAsDataURL(selectedFile));}
+    	//console.log(selectedFile.getAsBinary());}
+    } catch (err) {
+    	alert("Sorry There was an error" + err)
+    }
+	</script>
+</body>
+</html>
